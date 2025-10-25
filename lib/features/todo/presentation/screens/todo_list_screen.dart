@@ -1,6 +1,7 @@
 // lib/features/todo/presentation/screens/todo_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_android_app/shared/widgets/empty_state.dart';
 import '../../../../core/constants/app_strings.dart';
 
 class TodoListScreen extends ConsumerWidget {
@@ -11,6 +12,10 @@ class TodoListScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.todoListTitle),
+      ),
+      body: EmptyState(
+        message: AppStrings.emptyTodoMessage,
+        icon: Icons.warning_rounded,
       ),
     );
   }
