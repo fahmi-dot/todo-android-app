@@ -4,7 +4,9 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../shared/widgets/empty_state.dart';
 import '../providers/todo_filter_provider.dart';
+import '../providers/todo_provider.dart';
 import '../widgets/todo_form_dialog.dart';
+import '../widgets/todo_item.dart';
 
 class TodoListScreen extends ConsumerWidget {
   const TodoListScreen({super.key});
@@ -29,7 +31,7 @@ class TodoListScreen extends ConsumerWidget {
               ),
               itemCount: todos.length,
               itemBuilder: (context, index) {
-                return Text(index.toString());
+                return TodoItem(todo: todos[index]);
               },
             ),
       floatingActionButton: FloatingActionButton.extended(
@@ -37,6 +39,7 @@ class TodoListScreen extends ConsumerWidget {
           TodoFormDialog.show(
             context,
             onSubmit: (title) {
+              ref.read(todoProvider.notifier).addTodo(title);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text(AppStrings.todoAdded),
