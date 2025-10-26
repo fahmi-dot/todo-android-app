@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/utils/validators.dart';
 
 class TodoFormDialog extends StatefulWidget {
   final bool isEdit;
@@ -72,6 +73,7 @@ class _TodoFormDialogState extends State<TodoFormDialog> {
             hintText: "Masukkan tugas...",
             contentPadding: EdgeInsets.all(AppSizes.paddingM),
           ),
+          validator: Validators.validateTodo,
           onFieldSubmitted: (_) => _submit(),
         ),
       ),
