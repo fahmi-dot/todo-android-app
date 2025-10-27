@@ -1,9 +1,9 @@
 import '../entities/todo.dart';
 
 abstract class TodoRepository {
-  List<Todo> getTodos();
-  void addTodo(Todo todo);
-  void updateTodo(Todo todo);
-  void deleteTodo(String id);
-  void toggleTodo(String id);
+  Future<List<Todo>> getTodos();
+  Future<void> addTodo(Todo todo);
+  Future<void> updateTodo(Todo todo);
+  Future<void> deleteTodo(String id);
+  Future<void> toggleTodo(String id);
 }

@@ -1,30 +1,49 @@
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/todo_model.dart';
 
 class TodoLocalDataSource {
-  final List<TodoModel> _todos = [];
+  static const _key = 'todos';
 
-  List<TodoModel> getTodos() {
-    return List.unmodifiable(_todos);
+  Future<List<TodoModel>> getTodos() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString(_key);
+    if (jsonString == null) return [];
+    final List list = jsonDecode(jsonString);
+    return list.map((e) => TodoModel.fromJson(e)).toList();
   }
 
-  void addTodo(TodoModel todo) {
-    _todos.add(todo);
+  Future<void> saveTodos(List<TodoModel> todos) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonList = todos.map((e) => e.toJson()).toList();
+    await prefs.setString(_key, jsonEncode(jsonList));
   }
 
-  void updateTodo(TodoModel todo) {
-    final index = _todos.indexWhere((t) => t.id == todo.id);
+  Future<void> addTodo(TodoModel todo) async {
+    final todos = await getTodos();
+    todos.add(todo);
+    await saveTodos(todos);
+  }
+
+  Future<void> updateTodo(TodoModel todo) async {
+    final todos = await getTodos();
+    final index = todos.indexWhere((t) => t.id == todo.id);
     if (index != -1) {
-      _todos[index] = todo;
+      todos[index] = todo;
+      await saveTodos(todos);
     }
   }
 
-  void deleteTodo(String id) {
-    _todos.removeWhere((t) => t.id == id);
+  Future<void> deleteTodo(String id) async {
+    final todos = await getTodos();
+    todos.removeWhere((t) => t.id == id);
+    await saveTodos(todos);
   }
 
-  TodoModel? getTodoById(String id) {
+  Future<TodoModel?> getTodoById(String id) async {
+    final todos = await getTodos();
     try {
-      return _todos.firstWhere((t) => t.id == id);
+      return todos.firstWhere((t) => t.id == id);
     } catch (e) {
       return null;
     }
