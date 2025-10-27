@@ -9,25 +9,25 @@ class TodoRepositoryImpl implements TodoRepository {
   TodoRepositoryImpl(this._localDataSource);
 
   @override
-  Future<List<Todo>> getTodos() {
-    return _localDataSource.getTodos();
+  Future<List<Todo>> getTodos() async {
+    return await _localDataSource.getTodos();
   }
 
   @override
   Future<void> addTodo(Todo todo) async {
     final model = TodoModel.fromEntity(todo);
-    _localDataSource.addTodo(model);
+    await _localDataSource.addTodo(model);
   }
 
   @override
   Future<void> updateTodo(Todo todo) async {
     final model = TodoModel.fromEntity(todo);
-    _localDataSource.updateTodo(model);
+    await _localDataSource.updateTodo(model);
   }
 
   @override
   Future<void> deleteTodo(String id) async {
-    _localDataSource.deleteTodo(id);
+    await _localDataSource.deleteTodo(id);
   }
 
   @override
@@ -36,6 +36,6 @@ class TodoRepositoryImpl implements TodoRepository {
     if (todo == null) return;
     final updatedTodo = todo.copyWith(isCompleted: !todo.isCompleted);
     final updatedTodoModel = TodoModel.fromEntity(updatedTodo);
-    _localDataSource.updateTodo(updatedTodoModel);
+    await _localDataSource.updateTodo(updatedTodoModel);
   }
 }
