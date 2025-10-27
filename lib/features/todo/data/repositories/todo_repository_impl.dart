@@ -35,7 +35,8 @@ class TodoRepositoryImpl implements TodoRepository {
     final todo = _localDataSource.getTodoById(id);
     if (todo != null) {
       final updatedTodo = todo.copyWith(isCompleted: !todo.isCompleted);
-      _localDataSource.updateTodo(updatedTodo as TodoModel);
+      final updatedTodoModel = TodoModel.fromEntity(updatedTodo);
+      _localDataSource.updateTodo(updatedTodoModel);
     }
   }
 }
