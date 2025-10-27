@@ -19,10 +19,17 @@ class TodoNotifier extends Notifier<List<Todo>> {
 
   @override
   List<Todo> build() {
+    loadTodos();
     return [];
   }
 
-  void addTodo(String title) {
+  Future<void> loadTodos() async {
+    final repository = ref.read(todoRepositoryProvider);
+    final todos = await repository.getTodos();
+    state = todos;
+  }
+
+  Future<void> addTodo(String title) async {
     final repository = ref.read(todoRepositoryProvider);
     final todo = Todo(
       id: _uuid.v4(),
@@ -30,16 +37,16 @@ class TodoNotifier extends Notifier<List<Todo>> {
       isCompleted: false,
       createdAt: DateTime.now(),
     );
-    repository.addTodo(todo);
+    await repository.addTodo(todo);
     state = [...state, todo];
   }
 
-  void updateTodo(String id, String newTitle) {
+  Future<void> updateTodo(String id, String newTitle) async {
     final repository = ref.read(todoRepositoryProvider);
     final todoIndex = state.indexWhere((t) => t.id == id);
     if (todoIndex != -1) {
       final updatedTodo = state[todoIndex].copyWith(title: newTitle.trim());
-      repository.updateTodo(updatedTodo);
+      await repository.updateTodo(updatedTodo);
       state = [
         for (int i = 0; i < state.length; i++)
           if (i == todoIndex) updatedTodo else state[i],
@@ -47,9 +54,9 @@ class TodoNotifier extends Notifier<List<Todo>> {
     }
   }
 
-  void toggleTodo(String id) {
+  Future<void> toggleTodo(String id) async {
     final repository = ref.read(todoRepositoryProvider);
-    repository.toggleTodo(id);
+    await repository.toggleTodo(id);
     state = [
       for (final todo in state)
         if (todo.id == id)
@@ -59,9 +66,9 @@ class TodoNotifier extends Notifier<List<Todo>> {
     ];
   }
 
-  void deleteTodo(String id) {
+  Future<void> deleteTodo(String id) async {
     final repository = ref.read(todoRepositoryProvider);
-    repository.deleteTodo(id);
+    await repository.deleteTodo(id);
     state = state.where((t) => t.id != id).toList();
   }
 }
