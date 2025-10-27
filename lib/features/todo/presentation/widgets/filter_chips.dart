@@ -54,11 +54,11 @@ class FilterChips extends ConsumerWidget {
     required bool isSelected,
   }) {
     return FilterChip(
-      label: Text(label),
+      label: Text(label, style: TextStyle(fontWeight: FontWeight.bold)),
       selected: isSelected,
       onSelected: (_) {
         ref.read(todoFilterProvider.notifier).setFilter(filter);
-      }
+      },
     );
   }
 }

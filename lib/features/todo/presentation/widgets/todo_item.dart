@@ -21,7 +21,7 @@ class TodoItem extends ConsumerWidget {
         padding: const EdgeInsets.only(right: AppSizes.paddingL),
         decoration: BoxDecoration(
           color: Colors.red,
-          borderRadius: BorderRadius.circular(AppSizes.radiusM),
+          borderRadius: BorderRadius.circular(AppSizes.radiusS),
         ),
         child: const Icon(
           Icons.delete_outline,
@@ -64,6 +64,7 @@ class TodoItem extends ConsumerWidget {
                   ? Colors.grey
                   : Theme.of(context).textTheme.bodyLarge?.color,
               fontSize: AppSizes.fontL,
+              fontWeight: FontWeight.bold,
             ),
           ),
           subtitle: Text(

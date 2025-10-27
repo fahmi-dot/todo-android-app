@@ -19,7 +19,10 @@ class TodoListScreen extends ConsumerWidget {
     final stats = ref.watch(todoStatsProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.todoListTitle),
+        title: const Text(
+          AppStrings.todoListTitle,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: Column(
@@ -75,7 +78,7 @@ class TodoListScreen extends ConsumerWidget {
           );
         },
         label: AppStrings.addTodoTitle,
-        icon: Icons.add, 
+        icon: Icons.add,
       ),
     );
   }

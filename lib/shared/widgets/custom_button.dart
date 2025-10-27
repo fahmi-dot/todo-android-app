@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_sizes.dart';
 
 class CustomButton extends StatelessWidget {
@@ -35,7 +36,7 @@ class CustomButton extends StatelessWidget {
                 Icon(icon, size: AppSizes.iconS),
                 const SizedBox(width: AppSizes.paddingS),
               ],
-              Text(label),
+              Text(label, style: TextStyle(fontWeight: FontWeight.bold)),
             ],
           );
 
@@ -43,6 +44,12 @@ class CustomButton extends StatelessWidget {
       case ButtonType.primary:
         return FilledButton(
           onPressed: isLoading ? null : onPressed,
+          style: FilledButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSizes.radiusS),
+            ),
+            backgroundColor: AppColors.primary,
+          ),
           child: buttonChild,
         );
       case ButtonType.secondary:

@@ -64,18 +64,30 @@ class _TodoFormDialogState extends State<TodoFormDialog> {
     return AlertDialog(
       title: Text(
         widget.isEdit ? AppStrings.editTodoTitle : AppStrings.addTodoTitle,
+        style: TextStyle(
+          fontWeight: FontWeight.bold
+        ),
       ),
-      content: Form(
-        key: _formKey,
-        child: TextFormField(
-          controller: _controller,
-          autofocus: true,
-          decoration: const InputDecoration(
-            hintText: "Masukkan tugas...",
-            contentPadding: EdgeInsets.all(AppSizes.paddingM),
+      content: SizedBox(
+        width: 400,
+        child: Form(
+          key: _formKey,
+          child: TextFormField(
+            controller: _controller,
+            autofocus: true,
+            decoration: InputDecoration(
+              hintText: "Masukkan tugas...",
+              contentPadding: EdgeInsets.all(AppSizes.paddingM),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppSizes.fontS),
+              )
+            ),
+            validator: Validators.validateTodo,
+            onFieldSubmitted: (_) => _submit(),
+            keyboardType: TextInputType.multiline,
+            minLines: 2,
+            maxLines: null,
           ),
-          validator: Validators.validateTodo,
-          onFieldSubmitted: (_) => _submit(),
         ),
       ),
       actions: [
@@ -90,6 +102,9 @@ class _TodoFormDialogState extends State<TodoFormDialog> {
           label:  widget.isEdit ? AppStrings.save : AppStrings.addTodoTitle,
         ),
       ],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSizes.radiusS)
+      )
     );
   }
 }

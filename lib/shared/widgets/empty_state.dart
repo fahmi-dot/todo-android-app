@@ -22,7 +22,7 @@ class EmptyState extends StatelessWidget {
             size: AppSizes.iconS * 5,
             color: const Color.fromRGBO(33, 33, 33, 0.2),
           ),
-          const SizedBox(height: AppSizes.paddingL),
+          const SizedBox(height: AppSizes.paddingM),
           Text(
             message,
             style: TextStyle(
