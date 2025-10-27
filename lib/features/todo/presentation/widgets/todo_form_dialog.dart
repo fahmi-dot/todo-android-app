@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/validators.dart';
+import '../../../../shared/widgets/custom_button.dart';
 
 class TodoFormDialog extends StatefulWidget {
   final bool isEdit;
@@ -78,13 +79,15 @@ class _TodoFormDialogState extends State<TodoFormDialog> {
         ),
       ),
       actions: [
-        TextButton(
+        CustomButton(
+          type: ButtonType.text,
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text(AppStrings.cancel),
+          label: AppStrings.cancel,
         ),
-        FilledButton(
+        CustomButton(
+          type: ButtonType.primary,
           onPressed: _submit,
-          child: Text(widget.isEdit ? AppStrings.save : AppStrings.addTodoTitle),
+          label:  widget.isEdit ? AppStrings.save : AppStrings.addTodoTitle,
         ),
       ],
     );

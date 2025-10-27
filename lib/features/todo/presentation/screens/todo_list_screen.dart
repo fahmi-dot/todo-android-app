@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../shared/widgets/custom_button.dart';
 import '../../../../shared/widgets/empty_state.dart';
 import '../providers/todo_filter_provider.dart';
 import '../providers/todo_provider.dart';
@@ -57,7 +58,8 @@ class TodoListScreen extends ConsumerWidget {
                 return TodoItem(todo: todos[index]);
               },
             ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: CustomButton(
+        type: ButtonType.primary,
         onPressed: () {
           TodoFormDialog.show(
             context,
@@ -72,8 +74,8 @@ class TodoListScreen extends ConsumerWidget {
             },
           );
         },
-        icon: const Icon(Icons.add),
-        label: const Text(AppStrings.addTodoTitle),
+        label: AppStrings.addTodoTitle,
+        icon: Icons.add, 
       ),
     );
   }
